@@ -1,0 +1,23 @@
+trigger:
+  - feature/Block-chain-developers
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+      checkLatest: true
+
+  - script: |
+      npm install 
+      npm run build
+    displayName: 'Build'
+
+  - task: vercel-deployment-task@1
+    inputs:
+      vercelProjectId: 'prj_H00gxT1kcik1Pex3JNkgTEjLOL5L'
+      vercelOrgId: 'QqnXDuJO8mP173KZTZQ0RDS9'
+      vercelToken: $(VERCEL_TOKEN_BLOCKCHAIN)
+      production: true
